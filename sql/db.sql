@@ -19,3 +19,36 @@ create table user
 )
     comment '用户';
 
+-- 清空表数据（可选）
+TRUNCATE TABLE user;
+
+-- 插入模拟数据
+INSERT INTO user (username, userAccount, avatarUrl, gender, userPassword, phone, email, userStatus, userRole, tags, profile, createTime, updateTime, isDelete)
+SELECT
+    CONCAT('User', id) AS username,
+    CONCAT('account', id) AS userAccount,
+    CONCAT('avatar', id) AS avatarUrl,
+    FLOOR(RAND()*2) AS gender,
+    CONCAT('password', id) AS userPassword,
+    CONCAT('phone', id) AS phone,
+    CONCAT('email', id, '@example.com') AS email,
+    0 AS userStatus,
+    FLOOR(RAND()*2) AS userRole,
+    CONCAT('tag', id) AS tags,
+    CONCAT('Profile', id) AS profile,
+    NOW() - INTERVAL FLOOR(RAND()*365) DAY AS createTime,
+    NOW() - INTERVAL FLOOR(RAND()*365) DAY AS updateTime,
+    0 AS isDelete
+FROM
+    (SELECT @rownum:=@rownum+1 AS id
+     FROM
+         (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL
+          SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t1,
+         (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL
+          SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t2,
+         (SELECT 0 UNION ALL SELECT 1 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL
+          SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) t3,
+         (SELECT @rownum:=0) t4) nums
+WHERE
+        id <= 30;
+

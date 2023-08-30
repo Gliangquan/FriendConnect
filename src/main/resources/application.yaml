@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   application:
     name: FriendConnect
   datasource:
@@ -8,3 +10,5 @@ spring:
     password: "030201"
 server:
   port: 8080
+  servlet:
+    context-path: /api
