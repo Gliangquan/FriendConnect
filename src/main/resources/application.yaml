@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: FriendConnect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/friendconnect?serverTimezone=Asia/Shanghai
+    username: root
+    password: "030201"
+server:
+  port: 8080
